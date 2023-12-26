@@ -15,9 +15,7 @@ public interface PricelistRepository extends JpaRepository<Pricelist, Long> {
             value = """
             SELECT * 
             FROM Pricelists p 
-            WHERE (:queryDateTime BETWEEN p.start_Date AND p.end_Date)
-            AND :queryBrandId = p.brand_id
-            AND :queryProductId = p.product_id;
+            WHERE :queryBrandId = p.brand_id
             """)
-    public List<Pricelist> findByDates(LocalDateTime queryDateTime, Long queryBrandId, Long queryProductId);
+    public List<Pricelist> findByBrandId(Long queryBrandId);
 }

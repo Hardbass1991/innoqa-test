@@ -1,5 +1,6 @@
 package com.innoqa.test.service;
 
+import com.innoqa.test.dto.PricelistRequest;
 import com.innoqa.test.model.Pricelist;
 import com.innoqa.test.repository.PricelistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +16,20 @@ public class PricelistService {
     @Autowired
     private PricelistRepository pricelistRepository;
 
+    public List<Pricelist> getAllPricelists() {
+        return pricelistRepository.findAll();
+    }
+
     public Pricelist getPricelist(Long id) {
         Optional<Pricelist> optionalPricelist = pricelistRepository.findById(id);
         return optionalPricelist.get();
     }
 
-    public List<Pricelist> getAllPricelists() {
-        return pricelistRepository.findAll();
+    public List<Pricelist> getPricelistsByBrandId(Long id) {
+        return pricelistRepository.findByBrandId(id);
     }
 
-    public List<Pricelist> getPricelistCustom(LocalDateTime queryDateTime, Long queryBrandId, Long queryProductId) {
-        return pricelistRepository.findByDates(queryDateTime, queryBrandId, queryProductId);
+    public void savePricelist(Pricelist pricelist){
+        pricelistRepository.save(pricelist);
     }
-
 }

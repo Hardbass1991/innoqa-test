@@ -22,17 +22,11 @@ public class Pricelist {
     private Long Id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "brandId", referencedColumnName = "brandId")
+    @JoinColumn(name = "brand", referencedColumnName = "brandId")
     private Brand brand;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime startDate;
-
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime endDate;
-
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "productId", referencedColumnName = "productId")
+    @JoinColumn(name = "product", referencedColumnName = "productId")
     private Product product;
 
     private Integer priority;

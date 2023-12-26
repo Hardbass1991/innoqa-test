@@ -1,5 +1,6 @@
 package com.innoqa.test.controller;
 
+import com.innoqa.test.dto.PricelistRequest;
 import com.innoqa.test.model.Pricelist;
 import com.innoqa.test.service.PricelistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class PricelistController {
     @Autowired
     private PricelistService pricelistService;
 
-    @GetMapping("/all")
+    @GetMapping()
     public ResponseEntity<List<Pricelist>> getAllPricelists(){
         return status(HttpStatus.OK).body(pricelistService.getAllPricelists());
     }
@@ -31,12 +32,14 @@ public class PricelistController {
         return status(HttpStatus.OK).body(pricelistService.getPricelist(id));
     }
 
-    @GetMapping()
-    public ResponseEntity<List<Pricelist>> getPricelistsCustom(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-                                                                   LocalDateTime queryDateTime,
-                                                               Long queryBrandId,
-                                                               Long queryProductId) {
+    @GetMapping("/byBrandId")
+    public ResponseEntity<List<Pricelist>> getPricelistsByBrandId(@RequestParam Long brandId){
+        return status(HttpStatus.OK).body(pricelistService.getPricelistsByBrandId(brandId));
+    }
 
-        return status(HttpStatus.OK).body(pricelistService.getPricelistCustom(queryDateTime, queryBrandId, queryProductId));
+    @PostMapping()
+    public ResponseEntity<List<Pricelist>> postPricelist(@RequestBody Pricelist pricelist){
+        pricelistService.savePricelist(pricelist);
+        return status(HttpStatus.OK).body(pricelistService.getAllPricelists());
     }
 }
